@@ -6,7 +6,6 @@ const Login = () => {
     <div className={style.container}>
         <div className={style.container_inner}>
          <div className={style.image_contaner}>
-        {/* <img className={style.image_contaner_inner} src="/images/login-image.jpg" alt="my image" /> */}
         </div>
         </div>
     </div>
