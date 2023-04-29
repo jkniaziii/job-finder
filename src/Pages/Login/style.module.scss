@@ -1,8 +1,12 @@
 .container{
-    background: #3D5AFE;
+    background: #2B2D42;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .container_inner{
-    background: #2B2D42;
-    
+    background: #3D5AFE;
+    width: 70%;
+    height: 80%;
 }
