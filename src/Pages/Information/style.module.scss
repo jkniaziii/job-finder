@@ -1,0 +1,86 @@
+.container {
+    background: #2B2D42;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_inner {
+    background: #3D5AFE;
+    width: 70%;
+    height: 80%;
+}
+
+.credential_contaner {
+    padding: 32px;
+}
+
+.step_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.step {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(13, 13, 64);
+}
+
+.step_active {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(13, 13, 64);
+    ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.line {
+    width: 10%;
+    height: 5px;
+    background-color: #fff;
+}
+.title {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+.description{
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.input_container {
+    padding: 0 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn_container {
+    width: 30%;
+    align-self: end;
+    font-weight: bold;
+    color: #3D5AFE;
+}
+.type_btn_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    &.ant-select{
+        width: 35% !important;
+    }
+}

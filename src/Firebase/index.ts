@@ -55,7 +55,6 @@ const registerWithEmailAndPassword = async (name: string, email: string, passwor
             const user = await createUserWithEmailAndPassword(auth, email, password) as any;
             const res = await sendEmailVerification(user.user);
             resolve(user);
-            console.log({ res })
         })
     } catch (err: any) {
         console.error(err);
