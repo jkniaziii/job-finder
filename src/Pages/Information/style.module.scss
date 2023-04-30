@@ -22,7 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 16px;
+    margin-top: 24px;
 }
 
 .step {
@@ -116,11 +116,21 @@
     flex-direction: column;
     gap: 12px;
     font-size: 16px;
-    font-weight: 500;
-    color: #e3d9d9;
+    
     margin-bottom: 24px;
+    div{
+        display: flex;
+        justify-content: space-between;
+        :first-child {
+            color: #caadad;
+            font-weight: 500;
+          }
+          :nth-child(2) {
+            width: 70%;
+    }
     span{
         font-weight: 400; 
         color: $white__color;
+        
     }
-}
+}}

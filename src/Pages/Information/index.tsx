@@ -173,16 +173,16 @@ const Information = () => {
                 <div className={style.description}>Please review your details and  make sure these are accurate
                 and uptodate.</div>
                 <div className={style.preview}>
-                <div>Full Name: <span>{userDetail.name}</span></div>
-                <div>Phone Number: <span>{userDetail.number}</span></div>
-                <div>Email: <span>{userDetail.email}</span></div>
-                <div>Age: <span>{`${userDetail.age} Years`}</span></div>
-                <div>Gender: <span>{userDetail.gender}</span></div>
-                <div>Position: <span>{userDetail.position}</span></div>
-                <div>Industry: <span>{userDetail.industry}</span></div>
-                <div>Job Location: <span>{userDetail.location}</span></div>
-                <div>Experience:<span>{`${userDetail.experience} Years`}</span></div>
-                <div>Job Type: <span>{userDetail.job_type}</span></div>
+                <div><span>Full Name:</span> <span>{userDetail.name}</span></div>
+                <div><span>Phone Number:</span> <span>{userDetail.number}</span></div>
+                <div><span>Email:</span> <span>{userDetail.email}</span></div>
+                <div><span>Age:</span> <span>{`${userDetail.age} Years`}</span></div>
+                <div><span>Gender:</span> <span>{userDetail.gender}</span></div>
+                <div><span>Position:</span> <span>{userDetail.position}</span></div>
+                <div><span>Industry:</span> <span>{userDetail.industry}</span></div>
+                <div><span>Job Location:</span> <span>{userDetail.location}</span></div>
+                <div><span>Experience:</span><span>{`${userDetail.experience} Years`}</span></div>
+                <div><span>Job Type:</span> <span>{userDetail.job_type}</span></div>
                 </div>
                 <Button className={style.btn_container} onClick={() => setStep(1)}>Next</Button>
               </div>

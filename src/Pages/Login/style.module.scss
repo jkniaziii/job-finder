@@ -1,20 +1,112 @@
-.container{
-    background: #2B2D42;
+@import '../../styles/variables';
+
+.container {
+    background: $secondary__color;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.container_inner{
-    background: #3D5AFE;
+
+.container_inner {
+    background: $primary__color;
     width: 70%;
     height: 80%;
+    display: flex;
 }
-.image_contaner{
+
+.image_contaner {
     width: 50%;
     background-color: #081665;
+
+    img {
+        width: 100%;
+        height: -webkit-fill-available;
+        object-fit: cover;
+    }
+}
+
+.right {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: -webkit-fill-available;
 }
-.image_contaner_inner{
-    object-fit: contain; /* maintain aspect ratio of the image while fitting it within the child element */
+
+.credential_contaner {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.image_contaner_inner {
+    object-fit: contain;
+    /* maintain aspect ratio of the image while fitting it within the child element */
+}
+
+.form {
+    :global(.ant-form-item) {
+        margin-bottom: 16px;
+    }
+}
+
+.title {
+    color: $white__color;
+    align-self: center;
+}
+
+.signup_button {
+    width: 100%;
+    background: #00B5E4;
+    color: $white__color;
+    font-weight: bold;
+    border: none;
+}
+
+.google_button {
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+
+    img {
+        width: 20px;
+        margin-right: 10px;
+    }
+}
+
+.facebook_button {
+    color: #FFFFFF;
+    background: #1877F2;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+
+    img {
+        width: 20px;
+        margin-right: 10px;
+    }
+}
+
+.notes {
+    color: $white__color;
+    margin-bottom: 10px;
+    font-weight: 300;
+    font-size: 14px;
+
+    span {
+        a {
+            margin-right: 5px;
+            text-decoration: underline;
+            font-weight: 400;
+            cursor: pointer;
+            color: $white__color;
+        }
+
+    }
 }

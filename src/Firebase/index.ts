@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+import { rejects } from "assert";
 import { initializeApp } from "firebase/app";
 import {
     GoogleAuthProvider,
@@ -32,22 +33,27 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
-    try {
-        const res = await signInWithPopup(auth, googleProvider);
-        const user = res.user;
-    } catch (err: any) {
-        console.error(err);
-        alert(err.message);
-    }
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await signInWithPopup(auth, googleProvider);
+            resolve(res)
+        } catch (err: any) {
+            console.error(err);
+            alert(err.message);
+        }
+    })
 };
 const logInWithEmailAndPassword = async (email: string, password: string) => {
-    try {
-        const response = await signInWithEmailAndPassword(auth, email, password);
-        console.log({ response });
-    } catch (err: any) {
-        console.error(err);
-        alert(err.message);
-    }
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await signInWithEmailAndPassword(auth, email, password);
+            resolve(response);
+            console.log({ response });
+        } catch (err: any) {
+            console.error(err);
+            alert(err.message);
+        }
+    })
 };
 const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
     try {
