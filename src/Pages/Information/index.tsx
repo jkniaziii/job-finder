@@ -7,11 +7,33 @@ import { UploadOutlined } from '@ant-design/icons';
 const Information = () => {
   const [step, setStep] = useState(1);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [userDetail, setUserDetails] = useState<any>({
+    name:"",
+    number:"",
+    email:"",
+    age:"",
+    gender:"",
+    position:"",
+    industry:"",
+    location:"",
+    experience:"",
+    job_type:"",
+  });
   const activeClass = (stp: any) => step === stp ? style.step_active : style.step;
-  const onFinish = (values: any) => {
+  const onFinishPersonal = (values: any) => {
+    setStep(2)
+    setUserDetails({...userDetail, ...values})
     console.log({ values });
   };
 
+  const onFinishProfessional = (values: any) => {
+    setStep(3)
+    setUserDetails({...userDetail, ...values})
+    console.log({ values });
+  };
+
+  console.log({userDetail});
+  
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -42,11 +64,11 @@ const Information = () => {
           <div className={activeClass(3)}>3</div>
         </div>
         <div className={style.credential_contaner}>
-          <Form
-            onFinish={onFinish}
-            autoComplete="off"
-          >
-            {step === 1 &&
+          {step === 1 &&
+            <Form
+              onFinish={onFinishPersonal}
+              autoComplete="off"
+            >
               <Fragment>
                 <div className={style.input_container}>
                   <div className={style.title}>Personal Information</div>
@@ -60,38 +82,42 @@ const Information = () => {
                     <Input placeholder='Full Name' />
                   </Form.Item>
                   <Form.Item
-                    name="name"
+                    name="number"
                     rules={[{ required: true, message: 'Please input your phone number!' }]}
                   >
                     <Input placeholder='Phone Number' />
                   </Form.Item>
                   <Form.Item
-                    name="Email"
+                    name="email"
                     rules={[{ required: true, message: 'Please input your email!' }]}
                   >
                     <Input placeholder='Country' />
                   </Form.Item>
                   <Form.Item
-                    name="dob"
+                    name="age"
                   >
-                    <Input placeholder='Date of birth (optional)' />
+                    <Input placeholder='Age (optional)'/>
                   </Form.Item>
                   <Form.Item
                     name="gender"
                   >
                     <Input placeholder='Gender (optional)' />
                   </Form.Item>
-                  <Button className={style.btn_container} onClick={() => setStep(2)}>Next</Button>
+                  <Button htmlType="submit" className={style.btn_container}>Next</Button>
                 </div>
               </Fragment>
-            }
-            {step === 2 &&
+            </Form>
+          }
+          {step === 2 &&
+            <Form
+              onFinish={onFinishProfessional}
+              autoComplete="off"
+            >
               <Fragment>
                 <div className={style.input_container}>
                   <div className={style.title}>Professional Information</div>
-                  <div className={style.description}>In order to access our services,
-                    we need some basic personal information from you
-                    to provide you with the best possible experience.</div>
+                  <div className={style.description}>In order to provide relevent
+                    job we need some professional information from you.</div>
                   <Form.Item
                     name="position"
                     rules={[{ required: true, message: 'Please input your position!' }]}
@@ -111,12 +137,15 @@ const Information = () => {
                     <Input placeholder={`Location You're Interested in Working in`} />
                   </Form.Item>
                   <div className={style.type_btn_container}>
-                  <Form.Item
-                    name="experience"
-                  >
-                    <Input placeholder='Experience in Years' />
-                  </Form.Item>
-                  <Select
+                    <Form.Item
+                      name="experience"
+                    >
+                      <Input placeholder='Experience in Years' />
+                    </Form.Item>
+                    <Form.Item
+                      name="job_type"
+                    >
+                    <Select
                       defaultValue="Remote"
                       onChange={handleChange}
                       options={[
@@ -125,25 +154,41 @@ const Information = () => {
                         { value: 'hybrid', label: 'Hybrid' },
                       ]}
                     />
+                      </Form.Item>
                   </div>
                   <div className={style.upload_btn_container}>
                     <Upload {...props}>
                       <Button icon={<UploadOutlined />}>Click to Upload</Button>
                     </Upload>
-                    </div>
-                  <Button className={style.btn_container} onClick={() => setStep(3)}>Next</Button>
+                  </div>
+                  <Button htmlType="submit" className={style.btn_container}>Next</Button>
                 </div>
               </Fragment>
-            }
-            {step === 3 &&
-              <div>
-                <div className={style.title_container}>
-                  <div>Preview</div>
-                  <Button onClick={() => setStep(1)}>Next</Button>
+            </Form>
+          }
+          {step === 3 &&
+            <Fragment>
+              <div className={style.input_container}>
+                <div className={style.title}>Preview</div>
+                <div className={style.description}>Please review your details and  make sure these are accurate
+                and uptodate.</div>
+                <div className={style.preview}>
+                <div>Full Name: <span>{userDetail.name}</span></div>
+                <div>Phone Number: <span>{userDetail.number}</span></div>
+                <div>Email: <span>{userDetail.email}</span></div>
+                <div>Age: <span>{`${userDetail.age} Years`}</span></div>
+                <div>Gender: <span>{userDetail.gender}</span></div>
+                <div>Position: <span>{userDetail.position}</span></div>
+                <div>Industry: <span>{userDetail.industry}</span></div>
+                <div>Job Location: <span>{userDetail.location}</span></div>
+                <div>Experience:<span>{`${userDetail.experience} Years`}</span></div>
+                <div>Job Type: <span>{userDetail.job_type}</span></div>
                 </div>
+                <Button className={style.btn_container} onClick={() => setStep(1)}>Next</Button>
               </div>
-            }
-          </Form>
+            </Fragment>
+          }
+
         </div>
 
       </div>
