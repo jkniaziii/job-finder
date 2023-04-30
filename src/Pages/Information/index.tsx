@@ -1,21 +1,34 @@
 import React, { Fragment, useMemo, useState } from 'react';
 import style from './style.module.scss';
-import { Button, Dropdown, Form, Input, MenuProps, Select, Space } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { Button, Form, Input, Select, Upload, UploadFile, UploadProps } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
 
 const Information = () => {
   const [step, setStep] = useState(1);
-
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
   const activeClass = (stp: any) => step === stp ? style.step_active : style.step;
   const onFinish = (values: any) => {
     console.log({ values });
-
   };
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
+  };
+
+  const props: UploadProps = {
+    onRemove: (file) => {
+      const index = fileList.indexOf(file);
+      const newFileList = fileList.slice();
+      newFileList.splice(index, 1);
+      setFileList(newFileList);
+    },
+    beforeUpload: (file) => {
+      setFileList([...fileList, file]);
+
+      return false;
+    },
+    fileList,
   };
 
   return (
@@ -97,27 +110,27 @@ const Information = () => {
                   >
                     <Input placeholder={`Location You're Interested in Working in`} />
                   </Form.Item>
+                  <div className={style.type_btn_container}>
                   <Form.Item
                     name="experience"
                   >
                     <Input placeholder='Experience in Years' />
                   </Form.Item>
-                  <div className={style.type_btn_container}>
-                    <Select
-                      defaultValue="lucy"
+                  <Select
+                      defaultValue="Remote"
                       onChange={handleChange}
                       options={[
-                        { value: 'jack', label: 'Jack' },
-                        { value: 'lucy', label: 'Lucy' },
-                        { value: 'Yiminghe', label: 'yiminghe' },
+                        { value: 'remote', label: 'Remote' },
+                        { value: 'on_site', label: 'On-Site' },
+                        { value: 'hybrid', label: 'Hybrid' },
                       ]}
                     />
-                    <Form.Item
-                      name="cv"
-                    >
-                      <Input placeholder='Upload CV' type='file' />
-                    </Form.Item>
                   </div>
+                  <div className={style.upload_btn_container}>
+                    <Upload {...props}>
+                      <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                    </Upload>
+                    </div>
                   <Button className={style.btn_container} onClick={() => setStep(3)}>Next</Button>
                 </div>
               </Fragment>

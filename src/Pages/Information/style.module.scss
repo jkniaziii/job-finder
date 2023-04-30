@@ -51,18 +51,21 @@
     height: 5px;
     background-color: #fff;
 }
+
 .title {
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
     color: #fff;
 }
-.description{
+
+.description {
     font-size: 12px;
     color: #fff;
     margin-bottom: 10px;
     font-weight: bold;
 }
+
 .input_container {
     padding: 0 25%;
     display: flex;
@@ -75,12 +78,31 @@
     font-weight: bold;
     color: #3D5AFE;
 }
-.type_btn_container{
+
+.type_btn_container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     gap: 15px;
-    &.ant-select{
-        width: 35% !important;
+
+    :global(.ant-select) {
+        width: 200px;
+    }
+
+    :global(.ant-select-arrow) {
+        margin-top: -17px;
+    }
+
+}
+
+.upload_btn_container {
+    margin-bottom: 16px;
+    :global(.ant-upload-wrapper) {
+        :global(.ant-upload-select) {
+            display: block;
+        }
+
+        button {
+            width: 100%;
+        }
     }
 }
