@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import style from './style.module.scss';
-import { registerWithEmailAndPassword } from '../../Firebase';
+import { registerWithEmailAndPassword, signInWithGoogle } from '../../Firebase';
 import { Button, Form, Input } from 'antd';
 import type { FormInstance } from 'antd/es/form';
 import { Link, Navigate } from 'react-router-dom';
@@ -17,6 +17,14 @@ const Signup = () => {
       }
     });
   };
+
+const signUpWithGoogle = ()=>{
+  signInWithGoogle().then((res: any)=>{
+    if (res.user) {
+      setRegistered(res.user);
+    }
+  })
+};
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -65,7 +73,7 @@ const Signup = () => {
             </Form.Item>
           </Form>
           <div className={style.notes}><span><Link to='/signin'>Sign in</Link></span> if you are already registered.</div>
-          <Button className={style.google_button} type="default">
+          <Button onClick={signUpWithGoogle} className={style.google_button} type="default">
             <img src='./images/google_logo.png'  />
             <div>Signup with Google</div>
           </Button>

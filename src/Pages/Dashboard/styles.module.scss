@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+
+.container{
+    :global(.ant-layout-header){
+        padding-inline: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        :last-child{
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            img{
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+.header{
+    color: $white__color;
+   
+}
