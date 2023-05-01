@@ -134,3 +134,30 @@
         
     }
 }}
+
+
+@media (max-width: 767px) {
+    .container{
+        background: $secondary__color;
+    }
+    .right{
+        width: 100%;
+    }
+    .container_inner{
+     width: 100%;
+     height: auto;
+    }
+    .title{
+        margin-top: 16px;
+    }
+    .credential_contaner{
+        width: 100%;
+        padding: 0px;
+    }
+    .input_container{
+        padding: 0 5%;
+    }
+    .image_contaner{
+        display: none;
+    }
+   }

@@ -69,10 +69,6 @@ const Signup = () => {
             <img src='./images/google_logo.png'  />
             <div>Signup with Google</div>
           </Button>
-          {/* <Button className={style.facebook_button} type="default">
-            <img src='./images/facebook_logo.png'  />
-            <div>Signup with Facebook</div>
-          </Button> */}
           </div>
         </div>
       </div>
