@@ -1,32 +1,17 @@
 import React from 'react';
-import { LaptopOutlined, NotificationOutlined, UserOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { Dropdown, MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 import style from './styles.module.scss'
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 const { Header, Content, Sider } = Layout;
 
-const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
 
-const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-  (icon, index) => {
+const items2: MenuProps['items'] = [{name:'New Jobs', link: '/dashboard/new-jobs'}, {name: 'Applied Jobs', link: '/dashboard/applied-jobs'}].map(
+  (item, index) => {
     const key = String(index + 1);
-
     return {
       key: `sub${key}`,
-      icon: React.createElement(icon),
-      label: `subnav ${key}`,
-
-      children: new Array(4).fill(null).map((_, j) => {
-        const subKey = index * 4 + j + 1;
-        return {
-          key: subKey,
-          label: `option${subKey}`,
-        };
-      }),
+      label: (<Link to={item.link}>{item.name}</Link>),  
     };
   },
 );
@@ -67,33 +52,30 @@ const Dashboard: React.FC = () => {
   return (
     <Layout className={style.container}>
       <Header className={style.header}>
-       <div>JOB FINDER</div>
-      
+      <Link to='/dashboard'>
+       <h1>JOB FINDER</h1>
+      </Link>
        <div>
        <Dropdown menu={{ items }} placement="bottomLeft">
        <div>
-       <img src='./images/profile.jpg' />
+       <img src='/images/profile.jpg' />
        </div>
       </Dropdown>
         
        </div>
       </Header>
       <Layout>
-        <Sider width={200} style={{ background: colorBgContainer }}>
+        <Sider width={200}>
           <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderRight: 0 }}
             items={items2}
+            className={style.menu}
           />
         </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-          </Breadcrumb>
+        <Layout style={{ padding: '24px' }}>
           <Content
             style={{
               padding: 24,
@@ -102,7 +84,7 @@ const Dashboard: React.FC = () => {
               background: colorBgContainer,
             }}
           >
-            Content
+           <Outlet />
           </Content>
         </Layout>
       </Layout>

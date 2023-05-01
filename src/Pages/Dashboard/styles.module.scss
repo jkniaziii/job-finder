@@ -2,12 +2,12 @@
 
 .container{
     :global(.ant-layout-header){
+        background-color: $secondary__color;
         padding-inline: 16px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         :last-child{
-            width: 40px;
             height: 40px;
             cursor: pointer;
             img{
@@ -21,5 +21,19 @@
 }
 .header{
     color: $white__color;
-   
+    h1{
+        margin-left: 10px;
+    }
+}
+.menu{
+    background-color: $secondary__color;
+    :global(.ant-menu-item-selected){
+        background-color: $primary__color;
+        color: $white__color;
+        font-weight: bold;
+    }
+    li{
+        color: $white__color;
+        font-weight: bold;
+    }
 }
