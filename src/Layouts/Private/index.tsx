@@ -7,8 +7,8 @@ import { getUser } from '../../Store/actions/user';
 
 export const PrivateRoute = ({ element, user,  isLoading, getUser}: any) => {
 
-  if (!user && isLoading) {
-    return <Navigate to="/signin" />
+  if (!user && !isLoading) {
+    // return <Navigate to="/signin" />
   }
   return element;
 };

@@ -18,11 +18,12 @@ function App({getUser, user, isLoading}: any) {
      getUser(); 
   }, [])
 
-
+  console.log({user});
+  console.log({isLoading});
+  
   return (
-    <>
-    {(user && !isLoading) && <Navigate to={'/dashboard'} />}
-    {(!user && !isLoading) && <Navigate to={'/signin'} />}
+<>
+{(!user && !isLoading) && <Navigate to={'/signin'} />}
     <Routes>
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Login />} />
