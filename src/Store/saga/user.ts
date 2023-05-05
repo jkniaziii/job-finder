@@ -2,9 +2,17 @@ import { GET_USERS } from '../types/index';
 import axios from 'axios'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { getUsersData } from '../actions';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../Firebase';
 
 
-const getUsers = () => axios.get("https://jsonplaceholder.typicode.com/users");
+const getUsers = () => {
+    onAuthStateChanged(auth, user => {
+        if (user) {
+          return user;
+        } 
+      })
+};
 
 function* getUsersSaga() {
     try {

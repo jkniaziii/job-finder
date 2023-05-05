@@ -1,6 +1,6 @@
 import { GET_USERS, GET_USERS_SUCCESS } from '../types/index';
 const initialState = {
-    users: [],
+    users: null,
     isLoadung: false,
 }
 
