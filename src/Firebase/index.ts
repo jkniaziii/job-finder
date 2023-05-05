@@ -11,6 +11,7 @@ import {
     signOut,
     sendEmailVerification,
 } from "firebase/auth";
+import { removeLocalStorage, setLocalStorage } from "../Utills";
 
 
 // Your web app's Firebase configuration
@@ -32,41 +33,49 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
+
 const signInWithGoogle = async () => {
     return new Promise(async (resolve, reject) => {
         try {
-            const res = await signInWithPopup(auth, googleProvider);
-            resolve(res)
+            const response = await signInWithPopup(auth, googleProvider) as any;
+            setLocalStorage('token', response.user.accessToken);
+            resolve(response)
         } catch (err: any) {
+            reject(err);
             console.error(err);
             alert(err.message);
         }
     })
 };
+
 const logInWithEmailAndPassword = async (email: string, password: string) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await signInWithEmailAndPassword(auth, email, password);
+            const response = await signInWithEmailAndPassword(auth, email, password) as any;
+            setLocalStorage('token', response.user.accessToken);
             resolve(response);
-            console.log({ response });
         } catch (err: any) {
             console.error(err);
             alert(err.message);
         }
     })
 };
+
 const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
-    try {
-        return new Promise(async (resolve, reject) => {
-            const user = await createUserWithEmailAndPassword(auth, email, password) as any;
-            const res = await sendEmailVerification(user.user);
-            resolve(user);
-        })
-    } catch (err: any) {
-        console.error(err);
-        alert(err.message);
-    }
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await createUserWithEmailAndPassword(auth, email, password) as any;
+            const res = await sendEmailVerification(response.user);
+            setLocalStorage('token', response.user.accessToken);
+            resolve(response);
+        } catch (err: any) {
+            console.error(err);
+            alert(err.message);
+        }
+    })
 };
+
 const sendPasswordReset = async (email: string) => {
     try {
         await sendPasswordResetEmail(auth, email);
@@ -76,9 +85,20 @@ const sendPasswordReset = async (email: string) => {
         alert(err.message);
     }
 };
-const logout = () => {
-    signOut(auth);
+
+const logout = async () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await signOut(auth);
+            removeLocalStorage('token');
+            resolve(res)
+        } catch (err: any) {
+            console.error(err);
+            alert(err.message);
+        }
+    })
 };
+
 export {
     auth,
     signInWithGoogle,

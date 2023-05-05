@@ -1,7 +1,7 @@
 import { GET_USERS, GET_USERS_SUCCESS } from '../types/index';
 const initialState = {
-    users: null,
-    isLoadung: false,
+    user: null,
+    isLoading: true,
 }
 
 
@@ -11,7 +11,7 @@ const usersReducer = (state = initialState, actions: any) => {
         case GET_USERS:
             return { ...state, isLoadung: true }
         case GET_USERS_SUCCESS:
-            return { ...state, isLoadung: false,  users: actions.payload}
+            return { ...state, isLoading: false,  user: actions.payload}
         default:
             return state;
     }

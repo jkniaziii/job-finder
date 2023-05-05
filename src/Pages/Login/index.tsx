@@ -3,13 +3,17 @@ import style from './style.module.scss';
 import { logInWithEmailAndPassword, signInWithGoogle } from '../../Firebase';
 import { Button, Form, Input } from 'antd';
 import type { FormInstance } from 'antd/es/form';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getUsersData } from '../../Store/actions/user';
 
 
 
 const Signup = () => {
   const [registered, setRegistered] = useState(false);
   const formRef = React.useRef<FormInstance>(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const onFinish = (values: any) => {
     logInWithEmailAndPassword(values.email, values.password).then((res: any) => {
      console.log({res});
@@ -23,6 +27,16 @@ const Signup = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
+
+  const signUpWithGoogle = ()=>{
+    signInWithGoogle().then((res: any)=>{
+      if (res.user) {
+        dispatch(getUsersData(res));
+        navigate('/dashboard')
+      }
+    })
+  };
+
 
   if (registered) {
     return <Navigate to="/info" />
@@ -61,7 +75,7 @@ const Signup = () => {
             </Form.Item>
           </Form>
           <div className={style.notes}><span><Link to='/signup'>Sign Up</Link></span> if you are not already registered.</div>
-          <Button onClick={signInWithGoogle} className={style.google_button} type="default">
+          <Button onClick={signUpWithGoogle} className={style.google_button} type="default">
             <img src='./images/google_logo.png'  />
             <div>Signin with Google</div>
           </Button>

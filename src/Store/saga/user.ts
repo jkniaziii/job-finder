@@ -1,25 +1,30 @@
 import { GET_USERS } from '../types/index';
 import axios from 'axios'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
-import { getUsersData } from '../actions';
+import { getUsersData } from '../actions/user';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../Firebase';
 
 
 const getUsers = () => {
-    onAuthStateChanged(auth, user => {
+    return new Promise((resolve, reject) => {
+      onAuthStateChanged(auth, (user) => {
         if (user) {
-          return user;
-        } 
-      })
-};
+          resolve(user);
+        } else {
+          reject(user)
+        }
+      });
+    });
+  };
 
-function* getUsersSaga() {
+function* getUsersSaga(): Generator<any, void, any> {
     try {
-        //@ts-ignore
         const response = yield call(getUsers);
-        yield put(getUsersData(response.data));
-    } catch (e) { }
+        yield put(getUsersData(response));
+    } catch (e) {
+        yield put(getUsersData(e));
+     }
 }
 
 

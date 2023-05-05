@@ -1,11 +1,13 @@
 import React from 'react';
-import { Dropdown, MenuProps } from 'antd';
+import { Button, Dropdown, MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import style from './styles.module.scss'
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { logout } from '../../Firebase';
+import { useDispatch } from 'react-redux';
+import { getUsersData } from '../../Store/actions/user';
+
 const { Header, Content, Sider } = Layout;
-
-
 const items2: MenuProps['items'] = [{ name: 'New Jobs', link: '/dashboard/new-jobs' },
 { name: 'Applied Jobs', link: '/dashboard/applied-jobs' }].map(
     (item, index) => {
@@ -17,17 +19,27 @@ const items2: MenuProps['items'] = [{ name: 'New Jobs', link: '/dashboard/new-jo
     },
 );
 
-const items: MenuProps['items'] = [
-    { key: '1', label: (<Link to='/profile'>My Profile</Link>) },
-    { key: '2', label: (<Link to='/pricing'>Pricing</Link>) },
-    { key: '3', label: (<Link to=''>Logout</Link>) },
-];
-
-
 const Dashboard: React.FC = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
+    const logoutHandle = async () => {
+        
+        dispatch(getUsersData(null));
+        navigate('/signin');
+        await logout();
+
+    }
+
+
+    const items: MenuProps['items'] = [
+        { key: '1', label: (<Link to='/profile'>My Profile</Link>) },
+        { key: '2', label: (<Link to='/pricing'>Pricing</Link>) },
+        { key: '3', label: (<Button onClick={logoutHandle}>Logout</Button>) },
+    ];
 
     return (
         <Layout className={style.container}>
