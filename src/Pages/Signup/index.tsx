@@ -3,36 +3,39 @@ import style from './style.module.scss';
 import { registerWithEmailAndPassword, signInWithGoogle } from '../../Firebase';
 import { Button, Form, Input } from 'antd';
 import type { FormInstance } from 'antd/es/form';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getUsersData } from '../../Store/actions/user';
 
 
 
 const Signup = () => {
-  const [registered, setRegistered] = useState(false);
   const formRef = React.useRef<FormInstance>(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onFinish = (values: any) => {
     registerWithEmailAndPassword(values.name, values.email, values.password).then((res: any) => {
       if (res.user) {
-        setRegistered(res.user);
+        navigate('/info')
+        dispatch(getUsersData(res));
       }
     });
   };
 
-const signUpWithGoogle = ()=>{
-  signInWithGoogle().then((res: any)=>{
-    if (res.user) {
-      setRegistered(res.user);
-    }
-  })
-};
+  const signUpWithGoogle = ()=>{
+    signInWithGoogle().then((res: any)=>{
+      if (res.user) {
+        navigate('/info')
+        dispatch(getUsersData(res));
+      }
+    })
+  };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
-  if (registered) {
-    return <Navigate to="/info" />
-  }
+  
   return (
     <div className={style.container}>
       <div className={style.container_inner}>

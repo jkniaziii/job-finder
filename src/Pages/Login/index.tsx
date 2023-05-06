@@ -10,17 +10,14 @@ import { getUsersData } from '../../Store/actions/user';
 
 
 const Signup = () => {
-  const [registered, setRegistered] = useState(false);
+
   const formRef = React.useRef<FormInstance>(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const onFinish = (values: any) => {
     logInWithEmailAndPassword(values.email, values.password).then((res: any) => {
-     console.log({res});
-     
-      if (res.user) {
-        setRegistered(res.user);
-      }
+      navigate('/dashboard')
+      dispatch(getUsersData(res));
     });
   };
 
@@ -31,16 +28,12 @@ const Signup = () => {
   const signUpWithGoogle = ()=>{
     signInWithGoogle().then((res: any)=>{
       if (res.user) {
-        dispatch(getUsersData(res));
         navigate('/dashboard')
+        dispatch(getUsersData(res));
       }
     })
   };
 
-
-  if (registered) {
-    return <Navigate to="/info" />
-  }
   return (
     <div className={style.container}>
       <div className={style.container_inner}>

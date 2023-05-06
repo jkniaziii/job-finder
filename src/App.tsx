@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Signup from './Pages/Signup';
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import Login from './Pages/Login';
 import Information from './Pages/Information';
 import DashBoard from './Pages/Dashboard';
 import NewJobs from './Components/NewJobs';
 import AppliedJobs from './Components/AppliedJobs';
-import { PrivateRoute } from './Layouts/Private';
+import PrivateRoute from './Layouts/Private';
 import { getUser } from './Store/actions/user';
 import { connect } from 'react-redux';
 
@@ -18,12 +18,10 @@ function App({getUser, user, isLoading}: any) {
      getUser(); 
   }, [])
 
-  console.log({user});
-  console.log({isLoading});
+
   
   return (
-<>
-{(!user && !isLoading) && <Navigate to={'/signin'} />}
+
     <Routes>
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Login />} />
@@ -33,7 +31,7 @@ function App({getUser, user, isLoading}: any) {
       <Route path="applied-jobs" element={<AppliedJobs />} />
       </Route>
     </Routes>
-    </>
+
   );
 }
 
