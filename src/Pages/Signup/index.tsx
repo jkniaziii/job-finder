@@ -6,6 +6,7 @@ import type { FormInstance } from 'antd/es/form';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getUsersData } from '../../Store/actions/user';
+import { createUser } from '../../Api/user';
 
 
 
@@ -23,10 +24,18 @@ const Signup = () => {
   };
 
   const signUpWithGoogle = ()=>{
-    signInWithGoogle().then((res: any)=>{
+    signInWithGoogle().then(async (res: any)=>{
       if (res.user) {
-        navigate('/info')
         dispatch(getUsersData(res));
+        const payload = {
+        name: res.user.displayName,
+        email: res.user.email,
+        userId: res.user.uid,
+        isVarified: res.user.emailVerified,
+        isSubscriber: false,
+       }
+       await createUser(payload);
+       return navigate('/info');
       }
     })
   };

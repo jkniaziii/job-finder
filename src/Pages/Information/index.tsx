@@ -1,16 +1,17 @@
 import React, { Fragment, useMemo, useState } from 'react';
 import style from './style.module.scss';
-import { Button, Form, Input, Select, Upload, UploadFile, UploadProps } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select} from 'antd';
+import { useSelector } from 'react-redux';
+import { updateUser } from '../../Api/user';
 
 
 const Information = () => {
   const [step, setStep] = useState(1);
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [cv, setCV] = useState('');
   const [userDetail, setUserDetails] = useState<any>({
-    name:"",
+    nameProfessional:"",
     number:"",
-    email:"",
+    emailProfessional:"",
     age:"",
     gender:"",
     position:"",
@@ -18,18 +19,27 @@ const Information = () => {
     location:"",
     experience:"",
     job_type:"",
+    cv:"",
   });
+  
+  const currentUser = useSelector((state: any) => state.users.user);
+  console.log({currentUser});
+  
   const activeClass = (stp: any) => step === stp ? style.step_active : style.step;
+
+
   const onFinishPersonal = (values: any) => {
     setStep(2)
-    setUserDetails({...userDetail, ...values})
-    console.log({ values });
+    setUserDetails({...userDetail, ...values});
+    const payload = {professionalInfo: {...userDetail, ...values}};
+    updateUser(currentUser.uid, payload)
   };
 
   const onFinishProfessional = (values: any) => {
     setStep(3)
-    setUserDetails({...userDetail, ...values})
-    console.log({ values });
+    setUserDetails({...userDetail, ...values});
+    const payload = {professionalInfo: {...userDetail, ...values, cv}};
+    updateUser(currentUser.uid, payload)
   };
 
   console.log({userDetail});
@@ -38,20 +48,20 @@ const Information = () => {
     console.log(`selected ${value}`);
   };
 
-  const props: UploadProps = {
-    onRemove: (file) => {
-      const index = fileList.indexOf(file);
-      const newFileList = fileList.slice();
-      newFileList.splice(index, 1);
-      setFileList(newFileList);
-    },
-    beforeUpload: (file) => {
-      setFileList([...fileList, file]);
-
-      return false;
-    },
-    fileList,
-  };
+  function convertToBase64() {
+    //@ts-ignore
+    var selectedFile = document.getElementById("inputFile").files;
+    if (selectedFile.length > 0) {
+        var fileToLoad = selectedFile[0];
+        var fileReader = new FileReader();
+        var base64;
+        fileReader.onload = function(fileLoadedEvent: any) {
+            base64 = fileLoadedEvent.target.result;
+            setCV(base64);
+        };
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}
 
   return (
     <div className={style.container}>
@@ -68,6 +78,7 @@ const Information = () => {
             <Form
               onFinish={onFinishPersonal}
               autoComplete="off"
+              initialValues={{ remember: true }}
             >
               <Fragment>
                 <div className={style.input_container}>
@@ -76,7 +87,7 @@ const Information = () => {
                     we need some basic personal information from you
                     to provide you with the best possible experience.</div>
                   <Form.Item
-                    name="name"
+                    name="nameProfessional"
                     rules={[{ required: true, message: 'Please input your full name!' }]}
                   >
                     <Input placeholder='Full Name' />
@@ -88,7 +99,7 @@ const Information = () => {
                     <Input placeholder='Phone Number' />
                   </Form.Item>
                   <Form.Item
-                    name="email"
+                    name="country"
                     rules={[{ required: true, message: 'Please input your email!' }]}
                   >
                     <Input placeholder='Country' />
@@ -142,24 +153,15 @@ const Information = () => {
                     >
                       <Input placeholder='Experience in Years' />
                     </Form.Item>
-                    <Form.Item
-                      name="job_type"
-                    >
-                    <Select
-                      defaultValue="Remote"
-                      onChange={handleChange}
-                      options={[
-                        { value: 'remote', label: 'Remote' },
-                        { value: 'on_site', label: 'On-Site' },
-                        { value: 'hybrid', label: 'Hybrid' },
-                      ]}
-                    />
-                      </Form.Item>
+                    <Form.Item name="job_type">
+                      <Select
+                        defaultValue="Select job type"
+                        options={[{ value: 'remote', label: 'Remote' }, { value: 'on_site', label: 'On-Site' }, { value: 'hybrid', label: 'Hybrid' },]}
+                      />
+                    </Form.Item>
                   </div>
                   <div className={style.upload_btn_container}>
-                    <Upload {...props}>
-                      <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                    </Upload>
+                    <Input placeholder='UPload your CV' id="inputFile"  type='file' onChange={convertToBase64}/>
                   </div>
                   <Button htmlType="submit" className={style.btn_container}>Next</Button>
                 </div>
