@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import style from './style.module.scss';
 import { registerWithEmailAndPassword, signInWithGoogle } from '../../Firebase';
 import { Button, Form, Input } from 'antd';
-import type { FormInstance } from 'antd/es/form';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getUsersData } from '../../Store/actions/user';
 import { createUser } from '../../Api/user';
@@ -15,10 +14,18 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onFinish = (values: any) => {
-    registerWithEmailAndPassword(values.name, values.email, values.password).then((res: any) => {
+    registerWithEmailAndPassword(values.name, values.email, values.password).then(async (res: any) => {
       if (res.user) {
-        navigate('/info')
+        navigate('/info');
         dispatch(getUsersData(res));
+        const payload = {
+          name: res.user.displayName,
+          email: res.user.email,
+          userId: res.user.uid,
+          isVarified: res.user.emailVerified,
+          isSubscriber: false,
+         }
+        await createUser(payload);
       }
     });
   };

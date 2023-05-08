@@ -3,6 +3,7 @@ import style from './style.module.scss';
 import { Button, Form, Input, Select} from 'antd';
 import { useSelector } from 'react-redux';
 import { updateUser } from '../../Api/user';
+import { useNavigate } from 'react-router-dom';
 
 
 const Information = () => {
@@ -23,7 +24,7 @@ const Information = () => {
   });
   
   const currentUser = useSelector((state: any) => state.users.user);
-  console.log({currentUser});
+  const navigate = useNavigate();
   
   const activeClass = (stp: any) => step === stp ? style.step_active : style.step;
 
@@ -32,18 +33,16 @@ const Information = () => {
     setStep(2)
     setUserDetails({...userDetail, ...values});
     const payload = {professionalInfo: {...userDetail, ...values}};
-    updateUser(currentUser.uid, payload)
+    updateUser(currentUser.user.uid, payload)
   };
 
   const onFinishProfessional = (values: any) => {
     setStep(3)
     setUserDetails({...userDetail, ...values});
     const payload = {professionalInfo: {...userDetail, ...values, cv}};
-    updateUser(currentUser.uid, payload)
+    updateUser(currentUser.user.uid, payload)
   };
 
-  console.log({userDetail});
-  
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -78,7 +77,6 @@ const Information = () => {
             <Form
               onFinish={onFinishPersonal}
               autoComplete="off"
-              initialValues={{ remember: true }}
             >
               <Fragment>
                 <div className={style.input_container}>
@@ -186,7 +184,7 @@ const Information = () => {
                 <div><span>Experience:</span><span>{`${userDetail.experience} Years`}</span></div>
                 <div><span>Job Type:</span> <span>{userDetail.job_type}</span></div>
                 </div>
-                <Button className={style.btn_container} onClick={() => setStep(1)}>Next</Button>
+                <Button className={style.btn_container} onClick={() => navigate('/dashboard')}>Next</Button>
               </div>
             </Fragment>
           }

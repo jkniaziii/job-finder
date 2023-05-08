@@ -10,7 +10,7 @@ const getUsers = () => {
     return new Promise((resolve, reject) => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          resolve(user);
+          resolve({user});
         } else {
           reject(user)
         }

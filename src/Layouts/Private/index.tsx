@@ -7,12 +7,7 @@ import { getUser } from '../../Store/actions/user';
 
 const PrivateRoute = ({ element, user,  isLoading, getUser}: any) => {
 
-
-  console.log({user});
-  console.log({isLoading});
   if (!user && !isLoading) {
-    console.log("HEREEEEEEEEEEEe");
-    
     return <Navigate to="/signin" />
   }
   return element;
