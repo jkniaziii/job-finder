@@ -4,19 +4,19 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { getUsersData } from '../actions/user';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../Firebase';
+import { getUserApi } from '../../Api/user';
+import { getLocalStorage } from '../../Utills';
 
 
-const getUsers = () => {
-    return new Promise((resolve, reject) => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          resolve({user});
-        } else {
-          reject(user)
-        }
-      });
-    });
-  };
+const getUsers = async () => {
+  const id = getLocalStorage('token')
+  if (id) {
+    const user = await getUserApi(id);
+    return user;
+  } else {
+    return null;
+  }
+};
 
 function* getUsersSaga(): Generator<any, void, any> {
     try {

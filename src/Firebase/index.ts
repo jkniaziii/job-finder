@@ -38,7 +38,7 @@ const signInWithGoogle = async () => {
     return new Promise(async (resolve, reject) => {
         try {
             const response = await signInWithPopup(auth, googleProvider) as any;
-            setLocalStorage('token', response.user.accessToken);
+            setLocalStorage('token', response.user.uid);
             resolve(response)
         } catch (err: any) {
             reject(err);
@@ -52,7 +52,7 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
     return new Promise(async (resolve, reject) => {
         try {
             const response = await signInWithEmailAndPassword(auth, email, password) as any;
-            setLocalStorage('token', response.user.accessToken);
+            setLocalStorage('token', response.user.uid);
             resolve(response);
         } catch (err: any) {
             console.error(err);
@@ -67,7 +67,8 @@ const registerWithEmailAndPassword = async (name: string, email: string, passwor
         try {
             const response = await createUserWithEmailAndPassword(auth, email, password) as any;
             const res = await sendEmailVerification(response.user);
-            setLocalStorage('token', response.user.accessToken);
+            console.log({response});
+            setLocalStorage('token', response.user.uid);
             resolve(response);
         } catch (err: any) {
             console.error(err);

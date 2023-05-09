@@ -23,3 +23,13 @@ export const updateUser = async (id: any, payload: any) => {
   }
 };
 
+export const getUserApi = async (id: any) => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/user/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+

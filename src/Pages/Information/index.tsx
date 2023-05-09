@@ -173,9 +173,9 @@ const Information = () => {
                 <div className={style.description}>Please review your details and  make sure these are accurate
                 and uptodate.</div>
                 <div className={style.preview}>
-                <div><span>Full Name:</span> <span>{userDetail.name}</span></div>
+                <div><span>Full Name:</span> <span>{userDetail.nameProfessional}</span></div>
                 <div><span>Phone Number:</span> <span>{userDetail.number}</span></div>
-                <div><span>Email:</span> <span>{userDetail.email}</span></div>
+                <div><span>Email:</span> <span>{userDetail.emailProfessional}</span></div>
                 <div><span>Age:</span> <span>{`${userDetail.age} Years`}</span></div>
                 <div><span>Gender:</span> <span>{userDetail.gender}</span></div>
                 <div><span>Position:</span> <span>{userDetail.position}</span></div>
