@@ -18,8 +18,6 @@ function App({getUser, user, isLoading}: any) {
      getUser(); 
   }, [])
 
-
-  
   return (
 
     <Routes>
