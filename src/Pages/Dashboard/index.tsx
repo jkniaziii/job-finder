@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Dropdown, MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
-import style from './styles.module.scss'
+import style from './styles.module.scss';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../Firebase';
 import { useDispatch } from 'react-redux';
@@ -15,7 +15,7 @@ const items2: MenuProps['items'] = [{ name: 'New Jobs', link: '/dashboard/new-jo
         const key = String(index + 1);
         return {
             key: `sub${key}`,
-            label: (<Link to={item.link}>{item.name}</Link>),
+            label: (<Link className={style.test} to={item.link}>{item.name}</Link>),
         };
     },
 );
@@ -52,9 +52,9 @@ const Dashboard: React.FC = () => {
         <Layout className={style.container}>
             <Header className={style.header}>
                 <Link onClick={dashboardClick} to='/dashboard'>
-                    <h1>JOB FINDER</h1>
+                    <div className={style.logo}>JOB FINDER</div>
                 </Link>
-                <div>
+                <div style={!isDetail ? {borderRadius: '45px 0px 0px 0px'} : {}} className={style.dropdownContainer}>
                     <Dropdown menu={{ items }} placement="bottomLeft">
                         <div>
                             <img src='/images/profile.jpg' />
@@ -64,7 +64,7 @@ const Dashboard: React.FC = () => {
                 </div>
             </Header>
             <Layout>
-                <Sider width={200} style={{height: 'calc(100vh - 64px)'}}>
+                <Sider className={style.aside} style={{height: 'calc(100vh - 64px)'}}>
                     <Menu
                         mode="inline"
                         key={menuKey}
