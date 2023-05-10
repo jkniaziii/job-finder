@@ -1,71 +1,117 @@
 @import '../../styles/variables';
 
-.container{
-    :global(.ant-layout-header){
+.container {
+    :global(.ant-layout-header) {
         padding-inline: 0px;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 }
-.logo{
+
+.logo {
     font-size: 20px;
     font-weight: bold;
 }
-.dropdownContainer{
+
+.dropdownContainer {
     width: calc(100vw - 200px);
     background: $secondary__color;
     height: 64px;
     display: flex;
     flex-direction: column;
     padding-right: 15px;
-    cursor: pointer;
-    img{
+
+    img {
         width: 40px;
         height: 40px;
         object-fit: cover;
         border-radius: 50%;
+        cursor: pointer;
     }
-    :global(.ant-dropdown-trigger){
+
+    :global(.ant-dropdown-trigger) {
         width: 40px;
         height: 40px;
-        align-self:flex-end;
+        align-self: flex-end;
         margin-top: 10px;
     }
 }
 
-.header{
+.header {
     color: $white__color;
-    a{
+
+    a {
         width: 200px;
         background: #001529;
         padding-left: 25px;
     }
-    h1{
+
+    h1 {
         margin-left: 10px;
     }
 }
 
-.aside{
+.aside {
     height: 'calc(100vh - 64px)';
     width: 150px;
     background: #001529;
 }
-.menu{
-    :global(.ant-menu-item-active){
+
+.menu {
+    :global(.ant-menu-item-active) {
         background: $primary__color !important;
     }
+
     background-color: #001529;
-    :global(.ant-menu-item-selected){
+
+    :global(.ant-menu-item-selected) {
         background-color: $primary__color;
         color: $white__color;
         font-weight: bold;
     }
-    li{
+
+    li {
         color: $white__color;
         font-weight: bold;
-        :hover{
+
+        :hover {
             color: wheat;
         }
     }
 }
+
+@media (max-width: 767px) {
+    .aside {
+        display: none;
+    }
+
+    .dropdownContainer {
+        display: none;
+    }
+
+    .dropdownMobile {
+        width: calc(100vw - 200px);
+        background: $secondary__color;
+        height: 64px;
+        display: flex;
+        flex-direction: column;
+        padding-right: 15px;
+
+        img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        :global(.ant-dropdown-trigger) {
+            width: 40px;
+            height: 40px;
+            align-self: flex-end;
+            margin-top: 10px;
+        }
+    }
+}
+

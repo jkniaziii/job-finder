@@ -3,19 +3,20 @@ import style from './styles.module.scss';
 
 
 interface cardProps {
-  title?: string;
-  description?: string;
+  imgUrl?: string;
   onClick?: any;
-  btnText?: string;
+  color?: string;
 }
 
-const Card: React.FC<cardProps> = ({title, description, onClick, btnText}) => {
+const Card: React.FC<cardProps> = ({ imgUrl, onClick, color }) => {
   return (
     <div className={style.container}>
-        <div className={style.whiteCard}></div>
-        <div className={style.greenCard}>
-        <div className={style.subTitle}>Top Jobs</div>
-        </div>
+      <div style={{background: color}} className={style.whiteCard}></div>
+      <div className={style.greenCard}>
+        <div className={style.imageContainer}><div>
+          <img src={imgUrl} />
+        </div></div>
+      </div>
     </div>
   )
 }

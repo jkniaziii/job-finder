@@ -47,6 +47,13 @@ const Dashboard: React.FC = () => {
         { key: '2', label: (<Link to='/pricing'>Pricing</Link>) },
         { key: '3', label: (<Button onClick={logoutHandle}>Logout</Button>) },
     ];
+    const itemsMobile: MenuProps['items'] = [
+        { key: '1', label: (<Link to='/profile'>My Profile</Link>) },
+        { key: '2', label: (<Link to='/pricing'>Pricing</Link>) },
+        { key: '3', label: (<Link to='/dashboard/applied-jobs'>Applied Jobs</Link>) },
+        { key: '4', label: (<Link to='/dashboard/new-jobs'>New Jobs</Link>) },
+        { key: '5', label: (<Button onClick={logoutHandle}>Logout</Button>) },
+    ];
 
     return (
         <Layout className={style.container}>
@@ -60,7 +67,13 @@ const Dashboard: React.FC = () => {
                             <img src='/images/profile.jpg' />
                         </div>
                     </Dropdown>
-
+                </div>
+                <div style={!isDetail ? {borderRadius: '45px 0px 0px 0px'} : {}} className={style.dropdownMobile}>
+                    <Dropdown menu={{ items: itemsMobile }} placement="bottomLeft">
+                        <div>
+                            <img src='/images/menu.svg' />
+                        </div>
+                    </Dropdown>
                 </div>
             </Header>
             <Layout>
