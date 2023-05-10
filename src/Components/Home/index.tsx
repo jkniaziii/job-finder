@@ -9,7 +9,7 @@ const HomeComponent = () => {
   return (
     <div className={style.container}>
       <div className={style.title}><span>Hello welcome to Dashboard</span><img src='/images/hey.png' className={style.wave} /></div>
-      <div className={style.subTitle}>Jobs in Top Companies</div>
+      <div className={style.subTitle}>Here you can check jobs in Top Companies related to your provided information for all new related jobs you can check new jobs section</div>
       <div className={style.cardContainer}>
         <Card color='#DB4437' imgUrl='/images/google.png' />
         <Card color='#4267B2' imgUrl='/images/facebook.png' />
