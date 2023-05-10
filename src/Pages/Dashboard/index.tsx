@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Dropdown, MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import style from './styles.module.scss'
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../Firebase';
 import { useDispatch } from 'react-redux';
 import { getUsersData } from '../../Store/actions/user';
+import HomeComponent from '../../Components/Home';
 
 const { Header, Content, Sider } = Layout;
 const items2: MenuProps['items'] = [{ name: 'New Jobs', link: '/dashboard/new-jobs' },
@@ -22,18 +23,24 @@ const items2: MenuProps['items'] = [{ name: 'New Jobs', link: '/dashboard/new-jo
 const Dashboard: React.FC = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    const history = useLocation();
+    const isDetail = history.pathname.split('/')[2] ? true : false;
+    const [menuKey, setMenuKey] = useState(0);
+    console.log({menuKey});
+    
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
     const logoutHandle = async () => {
-        
         dispatch(getUsersData(null));
         navigate('/signin');
         await logout();
-
     }
 
+    const dashboardClick = async () => {
+        setMenuKey((prevKey) => prevKey + 1);
+    }
 
     const items: MenuProps['items'] = [
         { key: '1', label: (<Link to='/profile'>My Profile</Link>) },
@@ -44,7 +51,7 @@ const Dashboard: React.FC = () => {
     return (
         <Layout className={style.container}>
             <Header className={style.header}>
-                <Link to='/dashboard'>
+                <Link onClick={dashboardClick} to='/dashboard'>
                     <h1>JOB FINDER</h1>
                 </Link>
                 <div>
@@ -57,25 +64,26 @@ const Dashboard: React.FC = () => {
                 </div>
             </Header>
             <Layout>
-                <Sider width={200}>
+                <Sider width={200} style={{height: 'calc(100vh - 64px)'}}>
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={['1']}
+                        key={menuKey}
+                        defaultSelectedKeys={['0']}
                         defaultOpenKeys={['sub1']}
                         style={{ height: '100%', borderRight: 0 }}
                         items={items2}
                         className={style.menu}
                     />
                 </Sider>
-                <Layout style={{ padding: '24px' }}>
+                <Layout>
                     <Content
                         style={{
-                            padding: 24,
                             margin: 0,
-                            minHeight: 280,
+                            padding: 0,
                             background: colorBgContainer,
                         }}
                     >
+                        {!isDetail && <HomeComponent />}
                         <Outlet />
                     </Content>
                 </Layout>

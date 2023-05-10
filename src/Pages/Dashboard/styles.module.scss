@@ -21,6 +21,9 @@
 }
 .header{
     color: $white__color;
+    a{
+        margin-bottom: 25px;
+    }
     h1{
         margin-left: 10px;
     }
@@ -35,5 +38,8 @@
     li{
         color: $white__color;
         font-weight: bold;
+        :hover{
+            color: $primary__color;
+        }
     }
 }
