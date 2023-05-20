@@ -38,7 +38,7 @@ const Signup = () => {
         isSubscriber: false,
        }
        await createUser(payload);
-       return navigate('/dashboard');
+       navigate('/dashboard');
       }
     })
   };
