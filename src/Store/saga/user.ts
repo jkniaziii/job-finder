@@ -11,7 +11,7 @@ import { getLocalStorage } from '../../Utills';
 const getUsers = async () => {
   const id = getLocalStorage('token')
   if (id) {
-    const user = await getUserApi(id);
+    const user = await getUserApi();
     return user;
   } else {
     return null;

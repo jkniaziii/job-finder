@@ -20,11 +20,14 @@ export const addNumber = (data: any) => {
     }
 }
 
-export const getUsersData = (payload: any) => (dispatch: any) => {
-  return new Promise<any>((resolve, reject) => {
-    dispatch({ type: GET_USERS_SUCCESS, payload, resolve, reject });
-  })
-}
+export const getUsersData = (data: any) => {
+  console.log({data});
+  
+    return {
+      type: GET_USERS_SUCCESS,
+      payload: data
+    };
+  };
 
 
   export const getUser = () => {

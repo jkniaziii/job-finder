@@ -10,12 +10,16 @@ import AppliedJobs from './Components/AppliedJobs';
 import PrivateRoute from './Layouts/Private';
 import { getUser } from './Store/actions/user';
 import { connect } from 'react-redux';
-
+import './Services/auth'
+import axios from 'axios';
 
 function App({getUser, user, isLoading}: any) {
 
   useEffect(() => {
-     getUser(); 
+    
+        const response =  axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/user/`);
+        
+      
   }, [])
 
   return (
