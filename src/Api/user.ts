@@ -4,7 +4,7 @@ export const createUser = async (payload: any) => {
     console.log({payload});
     
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/create-user`, payload);
+    const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/register`, payload);
     return response.data;
   } catch (error) {
     console.error(error);

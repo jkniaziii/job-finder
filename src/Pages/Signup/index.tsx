@@ -13,17 +13,25 @@ const Signup = () => {
   // const formRef = React.useRef<FormInstance>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onFinish = (values: any) => {
+  
+  const onFinish = async(values: any) => {
+    const payload = {
+      name: values.name,
+      email: values.email,
+      password: values.password
+     }
+    await createUser(payload);
+
+    return
+    
     registerWithEmailAndPassword(values.name, values.email, values.password).then(async (res: any) => {
       if (res.user) {
         navigate('/info');
         dispatch(getUsersData(res));
         const payload = {
-          name: res.user.displayName,
-          email: res.user.email,
-          userId: res.user.uid,
-          isVarified: res.user.emailVerified,
-          isSubscriber: false,
+          name: values.name,
+          email: values.email,
+          password: res.user.uid
          }
         await createUser(payload);
       }
