@@ -10,6 +10,7 @@ import AppliedJobs from './Components/AppliedJobs';
 import PrivateRoute from './Layouts/Private';
 import { getUser } from './Store/actions/user';
 import { connect } from 'react-redux';
+import TEST from './Pages/test';
 
 
 function App({getUser, user, isLoading}: any) {
@@ -22,6 +23,7 @@ function App({getUser, user, isLoading}: any) {
 
     <Routes>
       <Route path="/signup" element={<Signup />} />
+      <Route path="/test" element={<TEST />} />
       <Route path="/signin" element={<Login />} />
       <Route path="/info" element={<PrivateRoute element={ <Information />} />} />
       <Route path="/dashboard" element={<PrivateRoute element={ <DashBoard />} />}>
