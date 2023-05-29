@@ -6,7 +6,7 @@ import type { FormInstance } from 'antd/es/form';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getUsersData } from '../../Store/actions/user';
-import { createUser } from '../../Api/user';
+import { createUser, loginUser } from '../../Api/user';
 
 
 
@@ -15,11 +15,16 @@ const Signup = () => {
   const formRef = React.useRef<FormInstance>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onFinish = (values: any) => {
-    logInWithEmailAndPassword(values.email, values.password).then((res: any) => {
-      navigate('/dashboard')
-      dispatch(getUsersData(res));
-    });
+
+
+  const onFinish = async (values: any) => {
+    loginUser({email: values.email, password: values.password}).then(((res: any)=>{
+      console.log({res})
+      if(res.id){
+        navigate('/dashboard')
+      }
+    }));
+    
   };
 
   const onFinishFailed = (errorInfo: any) => {

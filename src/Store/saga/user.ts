@@ -1,16 +1,13 @@
 import { GET_USERS } from '../types/index';
-import axios from 'axios'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { getUsersData } from '../actions/user';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../Firebase';
 import { getUserApi } from '../../Api/user';
 import { getLocalStorage } from '../../Utills';
 
 
 const getUsers = async () => {
-  const id = getLocalStorage('token')
-  if (id) {
+  const accessToken = getLocalStorage('accessToken')
+  if (accessToken) {
     const user = await getUserApi();
     return user;
   } else {

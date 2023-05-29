@@ -16,10 +16,7 @@ import axios from 'axios';
 function App({getUser, user, isLoading}: any) {
 
   useEffect(() => {
-    
-        const response =  axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/user/`);
-        
-      
+    getUser();
   }, [])
 
   return (

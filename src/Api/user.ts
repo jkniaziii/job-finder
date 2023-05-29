@@ -15,6 +15,22 @@ export const createUser = async (payload: any) => {
   }
 };
 
+export const loginUser = (payload: any) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/login`, payload)
+      .then((response) => {
+        setLocalStorage('accessToken', response.data.accessToken);
+        setLocalStorage('refreshToken', response.data.refreshToken);
+        resolve(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        reject(error);
+      });
+  });
+};
+
 export const updateUser = async (id: any, payload: any) => {
   console.log({payload});
   try {
