@@ -7,6 +7,8 @@ import { logout } from '../../Firebase';
 import { useDispatch } from 'react-redux';
 import { getUsersData } from '../../Store/actions/user';
 import HomeComponent from '../../Components/Home';
+import { logoutUser } from '../../Api/user';
+import { getLocalStorage } from '../../Utills';
 
 const { Header, Content, Sider } = Layout;
 const items2: MenuProps['items'] = [{ name: 'New Jobs', link: '/dashboard/new-jobs' },
@@ -33,6 +35,8 @@ const Dashboard: React.FC = () => {
     } = theme.useToken();
 
     const logoutHandle = async () => {
+        const refreshToken = getLocalStorage('refreshToken')
+        await logoutUser({refreshToken})
         dispatch(getUsersData(null));
         navigate('/signin');
         await logout();

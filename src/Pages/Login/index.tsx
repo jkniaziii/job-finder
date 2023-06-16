@@ -36,11 +36,9 @@ const Signup = () => {
       if (res.user) {
         dispatch(getUsersData(res));
         const payload = {
-        name: res.user.displayName,
-        email: res.user.email,
-        userId: res.user.uid,
-        isVarified: res.user.emailVerified,
-        isSubscriber: false,
+          name: res.user.displayName,
+          email: res.user.email,
+          password: res.user.uid
        }
        await createUser(payload);
        navigate('/dashboard');

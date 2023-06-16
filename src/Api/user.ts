@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setLocalStorage } from '../Utills';
+import { clearLocalStorage, setLocalStorage } from '../Utills';
 
 export const createUser = async (payload: any) => {
     console.log({payload});
@@ -52,3 +52,17 @@ export const getUserApi = async () => {
   }
 };
 
+export const logoutUser = (payload: any) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, payload)
+      .then((response) => {
+        clearLocalStorage()
+        resolve(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        reject(error);
+      });
+  });
+};

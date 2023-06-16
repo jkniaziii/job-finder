@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import style from './style.module.scss';
-import { registerWithEmailAndPassword, signInWithGoogle } from '../../Firebase';
+import { signInWithGoogle } from '../../Firebase';
 import { Button, Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -21,21 +21,6 @@ const Signup = () => {
       password: values.password
      }
     await createUser(payload);
-
-    return
-    
-    registerWithEmailAndPassword(values.name, values.email, values.password).then(async (res: any) => {
-      if (res.user) {
-        navigate('/info');
-        dispatch(getUsersData(res));
-        const payload = {
-          name: values.name,
-          email: values.email,
-          password: res.user.uid
-         }
-        await createUser(payload);
-      }
-    });
   };
 
   const signUpWithGoogle = ()=>{
@@ -45,9 +30,7 @@ const Signup = () => {
         const payload = {
         name: res.user.displayName,
         email: res.user.email,
-        userId: res.user.uid,
-        isVarified: res.user.emailVerified,
-        isSubscriber: false,
+        password: res.user.uid
        }
        await createUser(payload);
        return navigate('/info');
